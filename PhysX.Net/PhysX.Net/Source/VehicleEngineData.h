@@ -12,6 +12,8 @@ namespace PhysX
 		public:
 			literal int MaximumNumberOfEngineTorqueCurveEntries = PxVehicleEngineData::eMAX_NB_ENGINE_TORQUE_CURVE_ENTRIES;
 		
+			VehicleEngineData();
+
 		internal:
 			static PxVehicleEngineData ToUnmanaged(VehicleEngineData^ data);
 			static VehicleEngineData^ ToManaged(PxVehicleEngineData data);
@@ -23,6 +25,8 @@ namespace PhysX
 
 		public:
 			// TODO: TorqueCurve property
+
+			property float MomentOfInertia;
 
 			/// <summary>
 			/// Gets or sets the maximum torque available to apply to the engine, specified in Nm. Range: (0, inf).

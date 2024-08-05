@@ -11,11 +11,11 @@ using namespace System::Security::Permissions;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 //
-[assembly:AssemblyTitleAttribute("PhysX.Net for NVIDIA PhysX 4.1.2")];
+[assembly:AssemblyTitleAttribute("PhysX.NET for NVIDIA PhysX 4.1.2")];
 [assembly:AssemblyDescriptionAttribute(".NET wrapper for NVIDIA PhysX 4.1.2")];
 [assembly:AssemblyConfigurationAttribute("")];
 [assembly:AssemblyCompanyAttribute("StillDesign")];
-[assembly:AssemblyProductAttribute("PhysX.Net")];
+[assembly:AssemblyProductAttribute("PhysX.NET")];
 [assembly:AssemblyCopyrightAttribute("Copyright (c) StillDesign 2021")];
 [assembly:AssemblyTrademarkAttribute("")];
 [assembly:AssemblyCultureAttribute("")];

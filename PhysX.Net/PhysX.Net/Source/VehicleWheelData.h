@@ -8,6 +8,9 @@ namespace PhysX
 	/// </summary>
 	public ref class VehicleWheelData
 	{
+		public:
+			VehicleWheelData();
+
 		private:
 			float _reciprocalRadius, _recipMomentOfInertia;
 

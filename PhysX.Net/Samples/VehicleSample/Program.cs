@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using PhysX.Samples.VehicleSample;
 
-namespace PhysX.Samples.VehicleSample
-{
-	class Program
-	{
-		[STAThread]
-		static void Main(string[] args)
-		{
-			new VehicleSample();
-		}
-	}
-}
+var sample = new VehicleSample();
+
+sample.InitializePhysics();
+sample.SetUpVehicle();
+
+while (!sample.HasCompleted)
+    sample.StepPhysics();

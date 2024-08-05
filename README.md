@@ -1,60 +1,42 @@
-PhysX.Net
-=========
-A .NET wrapper for NVIDIA PhysX 4.1.2 written using C++/CLI.
+# PhysX.NET
 
-Nuget
------
-PM> Install-Package PhysX.Net -Prerelease
+PhysX.NET is a .NET wrapper for NVIDIA PhysX 4.1.2, implemented using C++/CLI. This project is a fork of [PhysX.Net](https://github.com/stilldesign/PhysX.Net) and includes a fully functional vehicle sample.
 
-Build all the things!
---------------
-A zip of all relevant DLLs and samples - https://github.com/stilldesign/PhysX.Net/releases
+## Features
 
-# Usage
-## Runtime files
-You must have `PhysX_64.dll`, `PhysXCommon_64.dll`, `PhysXCooking_64.dll`, `PhysXFoundation_64.dll` and `Ijwhost.dll` in the same directory as your executable.
+- **Vehicle Physics**: A fully functional vehicle simulation example. This wrapper is the only one that offers the option of implementing vehicle physics with C#. 
+- **Scene Management**: Create and manage physics scenes.
+- **Actor Management**: Handle actors, their properties, and physics interactions.
+- **Material Properties**: Define and manage physical materials.
+- **Raycasting and Queries**: Perform raycasts and queries.
+- **Debugging Tools**: Visualize and debug physics interactions with the PhysX Visual Debugger.
+- **Remaining Features**:
+  - Attach/Detach shape from an actor
+  - Serialization
+  - Broad Phase
+  - Deletion Listener
 
-There is a helper `.targets` file which will add links of these to the root of your project. Each file has `Copy to Output Directory` set.
+## Usage
 
-In your `.csproj` file:
-1. Set the `GeneratePathProperty="true"` attribute on the PhysX.Net `<PackageReference />` node.
-    * e.g. `<PackageReference Include="PhysX.Net" Version="5.0.1-alpha1" GeneratePathProperty="true" />`
-2. Add the follow to your `.csproj` file:
-```xml
-<ImportGroup>
-    <Import Project="$(PkgPhysX_Net)\lib\RuntimeFiles.targets"/>
-</ImportGroup>
-```
+To use PhysX.NET, follow these steps:
 
-Development
------------
-### PhysX.Net 5.0.1-alpha1 for NVIDIA PhysX 4.1.2
-* Targets PhysX 4.1.2
-* 64 bit version only
-* Dependencies
-	* .NET 8.0
-	* C runtime 2022 - https://aka.ms/vs/17/release/vc_redist.x64.exe
-* Remaining:
-    * Vehicle sample and a few related classes
-    * Attach/Detach shape from an actor
-    * Getting started guide for people
-    * Serialization
-    * Broad Phase
-    * Deletion Listener
+1. **Download**: Download the latest version from the [Releases](https://github.com/jjb-pro/PhysX.NET/releases/) page (there is no NuGet package). 
+2. Ensure the following DLLs are in the same directory as your executable:
+   - `PhysX_64.dll`
+   - `PhysXCommon_64.dll`
+   - `PhysXCooking_64.dll`
+   - `PhysXFoundation_64.dll`
+   - `Ijwhost.dll`
+3. **Add Reference**: Add a reference to the `PhysX.NET` assembly in your .NET project.
 
-# Building
-## Dependencies
-* Visual Studio 2022
-* VC++ v143 toolset for desktop - needed to build PhysX itself. If you've built PhysX already, this could be ignored.
+4. **Initialize PhysX**: Follow the example provided in the repository to set up and initialize PhysX in your project.
 
-## Compiling
-### Compile PhysX
-* Clone the [PhysX repo](https://github.com/NVIDIAGameWorks/PhysX)
-* Run ```generate_projects.bat``` from the ```physx``` directory
-* Open the solution and select the **debug** configuration
-* You'll need to change all the PhysX projects to use **Multi-threaded Debug DLL** in order for them to be consumed by .NET
-  * Select the projects in the solution explorer, right click, properties, C/C++, Code Generation and change **Runtime Library** to **Multi-threaded Debug DLL (/MDd)**
-### Compile PhysX.Net
-* Clone this repo
-* The default location of the PhysX 4.1.2 repo directory is *C:\NVIDIAGameWorks\PhysX*
-  * To specify an alternative location on your computer: define the environment variable **NVIDIAPhysX41SDK**. You can do this by running ```setx NVIDIAPhysX41SDK "C:\NVIDIAGameWorks\PhysX" /M``` (as *administrator*).
+## Example
+
+A sample implementation is available in the **Samples** directory of the repository. This example demonstrates how to use the wrapper and its features.
+
+## Development
+
+### Feature Requests
+
+Feature requests are welcome! If you have specific needs or suggestions, please open an issue on the [GitHub Issues page](https://github.com/jjb-pro/PhysX.NET/issues) to discuss your ideas.

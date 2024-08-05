@@ -1,6 +1,19 @@
 #include "StdAfx.h"
 #include "VehicleWheelData.h"
 
+PhysX::VehicleWheelData::VehicleWheelData()
+{
+	Radius = 0.0f; // must be filled out
+	Width = 0.0f;
+	Mass = 20.0f;
+	MomentOfInertia = 0.0f; // must be filled out
+	DampingRate = 0.25f;
+	MaxBrakeTorque = 1500.0f;
+	MaxHandBrakeTorque = 0.0f;
+	MaxSteer = 0.0f;
+	ToeAngle = 0.0f;
+}
+
 VehicleWheelData^ VehicleWheelData::ToManaged(PxVehicleWheelData wheelData)
 {
 	VehicleWheelData^ d = gcnew VehicleWheelData();

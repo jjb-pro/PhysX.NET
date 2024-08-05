@@ -15,9 +15,17 @@ namespace PhysX
 
 		public:
 			/// <summary>
+			/// Constructs the object with predefined values.
+			/// </summary>
+			VehicleDifferential4WData();
+
+			/// <summary>
 			/// Ratio of torque split between front and rear (>0.5 means more to front, <0.5 means more to rear).
 			/// </summary>
 			property float FrontRearSplit;
+
+			property float FrontLeftRightSplit;
+			property float RearLeftRightSplit;
 			/// <summary>
 			/// Maximum allowed ratio of average front wheel rotation speed and rear wheel rotation speeds.
 			/// </summary>

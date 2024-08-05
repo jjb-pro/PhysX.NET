@@ -19,7 +19,7 @@
     <SccAuxPath>SAK</SccAuxPath>
     <SccLocalPath>SAK</SccLocalPath>
     <SccProvider>SAK</SccProvider>
-    <ProjectName>PhysX.Net</ProjectName>
+    <ProjectName>PhysX.NET</ProjectName>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
@@ -52,10 +52,11 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(NVIDIAPhysX41SDK)\physx\Include;$(NVIDIAPhysX41SDK)\PxShared\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(NVIDIAPhysX41SDK)\physx\bin\win.x86_64.vc143.md\debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\NVIDIAGameWorks\PhysX\pxshared\include\;C:\NVIDIAGameWorks\PhysX\physx\include;$(NVIDIAPhysX41SDK)\physx\Include;$(NVIDIAPhysX41SDK)\PxShared\include\;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\NVIDIAGameWorks\PhysX\physx\bin\win.x86_64.vc142.mt\debug\;$(LibraryPath)</LibraryPath>
     <OutDir>$(ProjectDir)bin\x64\$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)bin\x64\$(Configuration)\Intermediate\</IntDir>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -68,7 +69,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN64;_DEBUG;PHYSX_DEBUG;_HAS_ITERATOR_DEBUGGING=0;_ITERATOR_DEBUG_LEVEL=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN64;_DEBUG;PHYSX_DEBUG;_HAS_ITERATOR_DEBUGGING=1;_ITERATOR_DEBUG_LEVEL=2;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -94,6 +95,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Source\BatchQueryDesc.h" />
+    <ClInclude Include="Source\BatchQueryMemory.h" />
+    <ClInclude Include="Source\CustomExtensions.h" />
+    <ClInclude Include="Source\InternalVehicleSceneQueryData.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Source\Actor.h" />
     <ClInclude Include="Source\ActorEnum.h" />
@@ -237,7 +242,7 @@
     <ClInclude Include="Source\VehicleSDK.h" />
     <ClInclude Include="Source\VehicleSDKNotInitializedException.h" />
     <ClInclude Include="Source\VehicleUtil.h" />
-    <ClInclude Include="Source\VehicleWheelQueryResult.h" />
+    <ClInclude Include="Source\WheelQueryResult.h" />
     <ClInclude Include="Source\VehicleWheels.h" />
     <ClInclude Include="Source\VehicleWheelsSimData.h" />
     <ClInclude Include="Source\PvdEnum.h" />
@@ -245,7 +250,6 @@
     <ClInclude Include="Source\FilterData.h" />
     <ClInclude Include="Source\FixedJoint.h" />
     <ClInclude Include="Source\FixedSizeLookupTable.h" />
-    <ClInclude Include="Source\FixedSizeLookupTablePair.h" />
     <ClInclude Include="Source\Foundation.h" />
     <ClInclude Include="Source\Geometry.h" />
     <ClInclude Include="Source\GeometryUtilEnum.h" />
@@ -330,8 +334,16 @@
     <ClInclude Include="Source\VehicleWheelData.h" />
     <ClInclude Include="Source\VehicleWheelValues.h" />
     <ClInclude Include="Source\XmlParserOptions.h" />
+    <ClInclude Include="Source\VehicleDrivableSurfaceToTireFrictionPairs.h" />
+    <ClInclude Include="Source\VehicleDrive4WRawInputData.h" />
+    <ClInclude Include="Source\VehicleSceneQueryData.h" />
+    <ClInclude Include="Source\VehicleWheelQueryResult.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\BatchQueryDesc.cpp" />
+    <ClCompile Include="Source\BatchQueryMemory.cpp" />
+    <ClCompile Include="Source\CustomExtensions.cpp" />
+    <ClCompile Include="Source\InternalVehicleSceneQueryData.cpp" />
     <ClCompile Include="Source\Actor.cpp" />
     <ClCompile Include="Source\ActorShape.cpp" />
     <ClCompile Include="Source\Aggregate.cpp" />
@@ -510,12 +522,16 @@
     <ClCompile Include="Source\VehicleTyreData.cpp" />
     <ClCompile Include="Source\VehicleTireLoadFilterData.cpp" />
     <ClCompile Include="Source\VehicleWheelData.cpp" />
-    <ClCompile Include="Source\VehicleWheelQueryResult.cpp" />
+    <ClCompile Include="Source\WheelQueryResult.cpp" />
     <ClCompile Include="Source\VehicleWheels.cpp" />
     <ClCompile Include="Source\VehicleWheelsSimData.cpp" />
     <ClCompile Include="Source\VehicleWheelValues.cpp" />
     <ClCompile Include="Source\Pvd.cpp" />
     <ClCompile Include="Source\XmlParserOptions.cpp" />
+    <ClCompile Include="Source\VehicleDrivableSurfaceToTireFrictionPairs.cpp" />
+    <ClCompile Include="Source\VehicleDrive4WRawInputData.cpp" />
+    <ClCompile Include="Source\VehicleSceneQueryData.cpp" />
+    <ClCompile Include="Source\VehicleWheelQueryResult.cpp" />
     <ClInclude Include="Source\GeometryEnum.h" />
     <ClCompile Include="Source\BoxGeometry.cpp" />
     <ClCompile Include="Source\CapsuleGeometry.cpp" />

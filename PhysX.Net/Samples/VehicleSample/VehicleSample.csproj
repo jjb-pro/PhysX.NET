@@ -1,11 +1,36 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<OutputType>WinExe</OutputType>
-		<UseWPF>true</UseWPF>
-		<RootNamespace>PhysX.Samples.VehicleSample</RootNamespace>
-		<AssemblyName>PhysX.Samples.VehicleSample</AssemblyName>
-	</PropertyGroup>
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <RootNamespace>PhysX.Samples.VehicleSample</RootNamespace>
+    <AssemblyName>PhysX.Samples.VehicleSample</AssemblyName>
+  </PropertyGroup>
+
 	<ItemGroup>
-		<ProjectReference Include="..\Engine\Engine.csproj" />
+		<None Include="..\..\Assemblies\x64\Debug\PhysXCommon_64.dll" Link="PhysXCommon_64.dll">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Include="..\..\Assemblies\x64\Debug\PhysXCooking_64.dll" Link="PhysXCooking_64.dll">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Include="..\..\Assemblies\x64\Debug\PhysXDevice64.dll" Link="PhysXDevice64.dll">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Include="..\..\Assemblies\x64\Debug\PhysXFoundation_64.dll" Link="PhysXFoundation_64.dll">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Include="..\..\Assemblies\x64\Debug\PhysXGpu_64.dll" Link="PhysXGpu_64.dll">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Include="..\..\Assemblies\x64\Debug\PhysX_64.dll" Link="PhysX_64.dll">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\PhysX.NET\PhysX.NET.vcxproj" />
 	</ItemGroup>
 </Project>

@@ -11,6 +11,9 @@ namespace PhysX
 		public:
 			static const int MaximumNumberOfGearRatios = PxVehicleGearsData::eGEARSRATIO_COUNT;
 
+			/// <summary>
+			/// Constructs the object with predefined values.
+			/// </summary>
 			VehicleGearsData();
 
 		internal:

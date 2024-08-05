@@ -27,7 +27,7 @@ namespace PhysX.Test.Actor
 			}
 		}
 
-		// https://github.com/stilldesign/PhysX.Net/issues/27
+		// https://github.com/stilldesign/PhysX.NET/issues/27
 		[TestMethod]
 		public void CreateAndDisposeRigidDynamicActor_EnsureItsRemovedFromTheObjectTable()
 		{

@@ -79,6 +79,36 @@ void VehicleSDK::VehicleComputeTireForceDefault(float tireFriction, float longSl
 	throw gcnew NotImplementedException();
 }
 
+array<float>^ PhysX::VehicleSDK::VehicleComputeSprungMasses(array<Vector3>^ sprungMassCoordinates, Vector3 centreOfMass, float totalMass, UINT gravityDirection)
+{
+	ThrowIfNull(sprungMassCoordinates, "sprungMassCoordinates");
+	//ThrowIfNull(sprungMasses, "sprungMasses");
+
+	PxVec3* v = new PxVec3[sprungMassCoordinates->Length];
+	for (int i = 0; i < sprungMassCoordinates->Length; i++)
+	{
+		v[i] = UV(sprungMassCoordinates[i]);
+	}
+
+	PxReal* r = new PxReal[sprungMassCoordinates->Length];
+	//for (int i = 0; i < sprungMasses->Length; i++)
+	//{
+	//	r[i] = sprungMasses[i];
+	//}
+
+	PxVehicleComputeSprungMasses(sprungMassCoordinates->Length, v, UV(centreOfMass), totalMass, gravityDirection, r);
+
+	array<float>^ result = gcnew array<float>(sprungMassCoordinates->Length);
+	for (int i = 0; i < sprungMassCoordinates->Length; i++) {
+		result[i] = r[i];
+	}
+
+	// clean up the unmanaged memory
+	delete[] r;
+
+	return result;
+}
+
 void VehicleSDK::VehicleSetBasisVectors(Vector3 up, Vector3 forward)
 {
 	PxVehicleSetBasisVectors(UV(up), UV(forward));
@@ -117,10 +147,51 @@ void VehicleSDK::VehicleSuspensionRaycasts(BatchQuery^ batchQuery, array<Vehicle
 	delete[] v;
 }
 
+array<VehicleWheelQueryResult^>^ PhysX::VehicleSDK::VehicleUpdates(float timestep, Vector3 gravity, VehicleDrivableSurfaceToTireFrictionPairs^ vehicleDrivableSurfaceToTireFrictionPairs, array<VehicleWheels^>^ vehicles)
+{
+	PxVehicleWheels** r = new PxVehicleWheels * [vehicles->Length];
+	PxVehicleWheelQueryResult* vehicleQueryResults = new PxVehicleWheelQueryResult[vehicles->Length];
+	for (int i = 0; i < vehicles->Length; i++)
+	{
+		r[i] = vehicles[i]->UnmanagedPointer;
+		vehicleQueryResults[i] = PxVehicleWheelQueryResult();
+		vehicleQueryResults[i].wheelQueryResults = new PxWheelQueryResult[PX_MAX_NB_WHEELS];
+		vehicleQueryResults[i].nbWheelQueryResults = r[i]->mWheelsSimData.getNbWheels();
+	}
+
+	PxVehicleUpdates(timestep, UV(gravity), *vehicleDrivableSurfaceToTireFrictionPairs->UnmanagedPointer, vehicles->Length, r, vehicleQueryResults);
+
+	delete[] r;
+
+	array<VehicleWheelQueryResult^>^ managedVehicleQueryResults = gcnew array<VehicleWheelQueryResult^>(vehicles->Length);
+	for (int i = 0; i < vehicles->Length; i++)
+	{
+		array<WheelQueryResult^>^ wheelQueryResults = gcnew array<WheelQueryResult^>(PX_MAX_NB_WHEELS);
+		for (int j = 0; j < PX_MAX_NB_WHEELS; j++)
+		{
+			wheelQueryResults[j] = WheelQueryResult::ToManaged(&vehicleQueryResults[i].wheelQueryResults[j]);
+		}
+
+		managedVehicleQueryResults[i] = gcnew VehicleWheelQueryResult(wheelQueryResults);
+	}
+
+	return managedVehicleQueryResults;
+}
+
+void PhysX::VehicleSDK::VehicleSetUpdateMode(VehicleUpdateMode updateMode)
+{
+	PxVehicleSetUpdateMode(static_cast<PxVehicleUpdateMode::Enum>(updateMode));
+}
+
 //void VehicleSDK::VehiclePostUpdates(VehicleConcurrentUpdateData^ concurrentUpdateData, array<VehicleWheels^>^ vehicles)
 //{
 //
 //}
+
+bool PhysX::VehicleSDK::VehicleIsInAir(VehicleWheelQueryResult^ vehicleWheelQueryResult)
+{
+	return PxVehicleIsInAir(*VehicleWheelQueryResult::ToUnmanaged(vehicleWheelQueryResult));
+}
 
 VehicleWheels^ VehicleSDK::VehicleUpdateCMassLocalPose(Matrix oldCMassLocalPose, Matrix newCMassLocalPose, VehicleGravityDirection gravityDirection, VehicleWheels^ vehicle)
 {
@@ -147,4 +218,9 @@ VehicleWheels^ VehicleSDK::VehicleUpdateCMassLocalPose(Matrix oldCMassLocalPose,
 PhysX::Physics^ VehicleSDK::Physics::get()
 {
 	return _physics;
+}
+
+UINT PhysX::VehicleSDK::MaxWheelNumber::get()
+{
+	return PX_MAX_NB_WHEELS;
 }

@@ -3,7 +3,20 @@
 
 VehicleGearsData::VehicleGearsData()
 {
+	FinalRatio = 4.0f;
+	NumberOfRatios = 7;
+	SwitchTime = 0.5f;
 	this->Ratios = gcnew array<float>(PxVehicleGearsData::eGEARSRATIO_COUNT);
+	Ratios[PxVehicleGearsData::eREVERSE] = -4.0f;
+	Ratios[PxVehicleGearsData::eNEUTRAL] = 0.0f;
+	Ratios[PxVehicleGearsData::eFIRST] = 4.0f;
+	Ratios[PxVehicleGearsData::eSECOND] = 2.0f;
+	Ratios[PxVehicleGearsData::eTHIRD] = 1.5f;
+	Ratios[PxVehicleGearsData::eFOURTH] = 1.1f;
+	Ratios[PxVehicleGearsData::eFIFTH] = 1.0f;
+
+	for (PxU32 i = PxVehicleGearsData::eSIXTH; i < PxVehicleGearsData::eGEARSRATIO_COUNT; ++i)
+		Ratios[i] = 0.f;
 }
 
 PxVehicleGearsData VehicleGearsData::ToUnmanaged(VehicleGearsData^ gearsData)

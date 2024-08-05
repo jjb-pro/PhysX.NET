@@ -12,8 +12,8 @@ VehiclePadSmoothingData^ VehiclePadSmoothingData::ToManaged(PxVehiclePadSmoothin
 PxVehiclePadSmoothingData VehiclePadSmoothingData::ToUnmanaged(VehiclePadSmoothingData^ desc)
 {
 	PxVehiclePadSmoothingData d;
-		Util::AsUnmanagedArray(desc->RiseRates, &d.mRiseRates, PxVehicleDriveDynData::eMAX_NB_ANALOG_INPUTS);
-		Util::AsUnmanagedArray(desc->FallRates, &d.mFallRates, PxVehicleDriveDynData::eMAX_NB_ANALOG_INPUTS);
+		Util::AsUnmanagedArray(desc->RiseRates, &d.mRiseRates, desc->RiseRates->Length);//PxVehicleDriveDynData::eMAX_NB_ANALOG_INPUTS);
+		Util::AsUnmanagedArray(desc->FallRates, &d.mFallRates, desc->FallRates->Length); //PxVehicleDriveDynData::eMAX_NB_ANALOG_INPUTS);
 
 	return d;
 }

@@ -1,4 +1,5 @@
 #pragma once
+#include "FilterData.h"
 
 
 namespace PhysX
@@ -14,66 +15,69 @@ namespace PhysX
 	/// </summary>
 	public ref class VehicleWheelsSimData
 	{
-	private:
-		PxVehicleWheelsSimData* _data;
+		private:
+			PxVehicleWheelsSimData* _data;
 	
-	public:
-		//VehicleWheelsSimData(PxVehicleWheelsSimData* data);
-		VehicleWheelsSimData(int numberOfWheels);
+		internal:
+			VehicleWheelsSimData(PxVehicleWheelsSimData* data);
 
-		void SetChassisMass(float chassisMass);
+		public:
+			VehicleWheelsSimData(int numberOfWheels);
 
-		void CopyWheelData(VehicleWheelsSimData^ sourceData, int sourceWheelIndex, int targetWheelIndex);
+			void SetChassisMass(float chassisMass);
 
-		VehicleSuspensionData^ GetSuspensionData(int id);
-		void SetSuspensionData(int id, VehicleSuspensionData^ data);
+			void CopyWheelData(VehicleWheelsSimData^ sourceData, int sourceWheelIndex, int targetWheelIndex);
 
-		VehicleWheelData^ GetWheelData(int id);
-		void SetWheelData(int id, VehicleWheelData^ data);
+			VehicleSuspensionData^ GetSuspensionData(int id);
+			void SetSuspensionData(int id, VehicleSuspensionData^ data);
 
-		VehicleTireData^ GetTireData(int id);
-		void SetTireData(int id, VehicleTireData^ data);
+			VehicleWheelData^ GetWheelData(int id);
+			void SetWheelData(int id, VehicleWheelData^ data);
 
-		Vector3 GetSuspensionTravelDirection(int id);
-		void SetSuspensionTravelDirection(int id, Vector3 direction);
+			VehicleTireData^ GetTireData(int id);
+			void SetTireData(int id, VehicleTireData^ data);
 
-		Vector3 GetSuspensionForceApplicationPointOffset(int id);
-		void SetSuspensionForceApplicationPointOffset(int id, Vector3 offset);
+			Vector3 GetSuspensionTravelDirection(int id);
+			void SetSuspensionTravelDirection(int id, Vector3 direction);
 
-		Vector3 GetTireForceApplicationPointOffset(int id);
-		void SetTireForceApplicationPointOffset(int id, Vector3 offset);
+			Vector3 GetSuspensionForceApplicationPointOffset(int id);
+			void SetSuspensionForceApplicationPointOffset(int id, Vector3 offset);
 
-		Vector3 GetWheelCentreOffset(int id);
-		void SetWheelCentreOffset(int id, Vector3 offset);
+			Vector3 GetTireForceApplicationPointOffset(int id);
+			void SetTireForceApplicationPointOffset(int id, Vector3 offset);
 
-		VehicleTireLoadFilterData^ GetTireLoadFilterData();
-		void SetTireLoadFilterData(VehicleTireLoadFilterData^ filterData);
+			void SetSceneQueryFilterData(int id, FilterData filterData);
 
-		void DisableWheel(int wheel);
+			Vector3 GetWheelCentreOffset(int id);
+			void SetWheelCentreOffset(int id, Vector3 offset);
 
-		bool IsWheelDisabled(int wheel);
+			VehicleTireLoadFilterData^ GetTireLoadFilterData();
+			void SetTireLoadFilterData(VehicleTireLoadFilterData^ filterData);
 
-		int GetWheelShapeMapping(int wheelId);
-		void SetWheelShapeMapping(int wheelId, int shapeId);
+			void DisableWheel(int wheel);
 
-		int AddAntiRollBarData(VehicleAntiRollBarData^ data);
-		VehicleAntiRollBarData^ GetAntiRollBarData(int antiRollBarId);
-		void GetAntiRollBarData(int antiRollBarId, VehicleAntiRollBarData^ data);
-		property int NumberOfAntiRollBars
-		{
-			int get();
-		}
+			bool IsWheelDisabled(int wheel);
 
-		property int NumberOfWheels
-		{
-			int get();
-		}
+			int GetWheelShapeMapping(int wheelId);
+			void SetWheelShapeMapping(int wheelId, int shapeId);
 
-		//
+			int AddAntiRollBarData(VehicleAntiRollBarData^ data);
+			VehicleAntiRollBarData^ GetAntiRollBarData(int antiRollBarId);
+			void GetAntiRollBarData(int antiRollBarId, VehicleAntiRollBarData^ data);
+			property int NumberOfAntiRollBars
+			{
+				int get();
+			}
 
-		property PxVehicleWheelsSimData* UnmanagedPointer
-		{
-			PxVehicleWheelsSimData* get();
-		}
+			property int NumberOfWheels
+			{
+				int get();
+			}
+
+		internal:
+			property PxVehicleWheelsSimData* UnmanagedPointer
+			{
+				PxVehicleWheelsSimData* get();
+			}
 	};
 };

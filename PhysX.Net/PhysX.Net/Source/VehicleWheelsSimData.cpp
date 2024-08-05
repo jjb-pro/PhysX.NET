@@ -6,6 +6,11 @@
 #include "VehicleTireLoadFilterData.h"
 #include "VehicleAntiRollBarData.h"
 
+VehicleWheelsSimData::VehicleWheelsSimData(PxVehicleWheelsSimData* data)
+{
+	_data = data;
+}
+
 VehicleWheelsSimData::VehicleWheelsSimData(int numberOfWheels)
 {
 	_data = PxVehicleWheelsSimData::allocate(numberOfWheels);
@@ -73,6 +78,11 @@ Vector3 VehicleWheelsSimData::GetTireForceApplicationPointOffset(int id)
 void VehicleWheelsSimData::SetTireForceApplicationPointOffset(int id, Vector3 offset)
 {
 	_data->setTireForceAppPointOffset(id, UV(offset));
+}
+
+void PhysX::VehicleWheelsSimData::SetSceneQueryFilterData(int id, FilterData filterData)
+{
+	_data->setSceneQueryFilterData(id, FilterData::ToUnmanaged(filterData));
 }
 
 Vector3 VehicleWheelsSimData::GetWheelCentreOffset(int id)

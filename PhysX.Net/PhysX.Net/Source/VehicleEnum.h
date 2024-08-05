@@ -68,4 +68,11 @@ namespace PhysX
 		NegativeY = 1,
 		NegativeZ = 2
 	};
+
+	public enum class VehicleUpdateMode
+	{
+		VelocityChange = PxVehicleUpdateMode::eVELOCITY_CHANGE,
+		Acceleration = PxVehicleUpdateMode::eACCELERATION
+	};
+
 };

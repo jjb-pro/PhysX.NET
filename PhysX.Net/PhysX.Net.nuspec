@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata>
-		<id>PhysX.Net</id>
-		<version>5.0.1-alpha1</version>
-		<authors>StillDesign</authors>
+		<id>PhysX.NET</id>
+		<version>5.1.0</version>
+		<authors>StillDesign &amp; jjb</authors>
 		<description>.NET wrapper for NVIDIA PhysX 4.1.2 (debug configuration)</description>
 		<language>en-US</language>
-		<projectUrl>https://github.com/stilldesign/PhysX.Net</projectUrl>
-		<repository type="git" url="https://github.com/stilldesign/PhysX.Net" />
+		<projectUrl>https://github.com/stilldesign/PhysX.NET</projectUrl>
+		<repository type="git" url="https://github.com/stilldesign/PhysX.NET" />
 		<tags>nvidia physx wrapper physics .net c#</tags>
 		<readme>docs\README.md</readme>
 		<frameworkAssemblies>
@@ -15,7 +15,7 @@
 		</frameworkAssemblies>
 		<references>
 			<group targetFramework="net8.0">
-				<reference file="PhysX.Net.dll" />
+				<reference file="PhysX.NET.dll" />
 			</group>
 		</references>
 		<dependencies>
@@ -23,17 +23,17 @@
 		</dependencies>
 	</metadata>
 	<files>
-		<file src="PhysX.Net\bin\x64\Debug\PhysX.Net.dll" target="lib\net8.0" />
-		<file src="PhysX.Net\bin\x64\Debug\PhysX.Net.pdb" target="lib\net8.0" />
+		<file src="PhysX.NET\bin\x64\Debug\PhysX.NET.dll" target="lib\net8.0" />
+		<file src="PhysX.NET\bin\x64\Debug\PhysX.NET.pdb" target="lib\net8.0" />
 		
-		<file src="PhysX.Net\bin\x64\Debug\PhysX.Net.dll" target="ref\net8.0" />
+		<file src="PhysX.NET\bin\x64\Debug\PhysX.NET.dll" target="ref\net8.0" />
 		
 		<!-- Dependencies -->
 		<!--
 			Required to run in 64 bit mode.
 			If they are not present then a BadImageFormatException will be thrown.
 		-->
-		<file src="PhysX.Net\bin\x64\Debug\Ijwhost.dll" target="runtimes/win-x64/native" />
+		<file src="PhysX.NET\bin\x64\Debug\Ijwhost.dll" target="runtimes/win-x64/native" />
 		<!-- The native PhysX DLL files -->
 		<file src="Assemblies\x64\Debug\*.dll" target="runtimes/win-x64/native" />
 		<file src="Assemblies\x64\Debug\*.pdb" target="pdb" />
@@ -42,7 +42,7 @@
 			A helper .targets file which will add the required native dlls to the root of a project and set them to copy to the output dir.
 			See the README.md on how to use this in your csproj file.
 		-->
-		<file src="PhysX.Net\RuntimeFiles.targets" target="lib" />
+		<file src="PhysX.NET\RuntimeFiles.targets" target="lib" />
 
 		<file src="..\README.md" target="docs\" />
 	</files>

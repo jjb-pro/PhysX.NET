@@ -5,6 +5,7 @@
 		<UseWindowsForms>true</UseWindowsForms>
 		<RootNamespace>PhysX.Samples.Engine</RootNamespace>
 		<AssemblyName>PhysX.Samples.Engine</AssemblyName>
+		<Nullable>disable</Nullable>
 		<EmbeddedResourceUseDependentUponConvention>false</EmbeddedResourceUseDependentUponConvention>
 	</PropertyGroup>
 	<ItemGroup>
@@ -42,7 +43,7 @@
 	  <PackageReference Include="SharpDX.Mathematics" Version="4.2.0" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\..\PhysX.Net\PhysX.Net.vcxproj" />
+	  <ProjectReference Include="..\..\PhysX.NET\PhysX.NET.vcxproj" />
 	</ItemGroup>
 	<ItemGroup>
 	  <None Update="Shaders\VisualizationEffect.fx">

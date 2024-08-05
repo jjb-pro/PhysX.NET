@@ -34,5 +34,11 @@ namespace PhysX
 			/// Mass of vehicle that is supported by suspension spring, specified in kg. Range: (0, inf).
 			/// </summary>
 			property float SprungMass;
+
+			property float CamberAtRest;
+
+			property float CamberAtMaxDroop;
+
+			property float CamberAtMaxCompression;
 	};
 };

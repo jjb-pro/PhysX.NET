@@ -1,6 +1,8 @@
 #pragma once
 
 #include "VehicleEnum.h"
+#include "VehicleDrivableSurfaceToTireFrictionPairs.h"
+#include "VehicleWheelQueryResult.h"
 
 namespace PhysX
 {
@@ -68,6 +70,8 @@ namespace PhysX
 			float tireLoad, float gravity, float recipGravity, float wheelTorque, float tireLongForceMag,
 			float tireLatForceMag, float tireAlignMoment);
 
+		array<float>^ VehicleComputeSprungMasses(array<Vector3>^ sprungMassCoordinates, Vector3 centreOfMass, float totalMass, UINT gravityDirection);
+
 		//void PxVehicleDrive4WSmoothAnalogRawInputsAndSetAnalogInputs  ( const PxVehiclePadSmoothingData &  padSmoothing,  
 		//const PxFixedSizeLookupTable< 8 > &  steerVsForwardSpeedTable,  
 		//const PxVehicleDrive4WRawInputData &  rawInputData,  
@@ -106,9 +110,13 @@ namespace PhysX
 		// TODO: Add vehiclesToRaycast arg
 		void VehicleSuspensionRaycasts(BatchQuery^ batchQuery, array<VehicleWheels^>^ vehicles, array<RaycastQueryResult^>^ sceneQueryResults);
 		
-		//void PxVehicleUpdates(float timestep, Vector3 gravity, VehicleDrivableSurfaceToTireFrictionPairs vehicleDrivableSurfaceToTireFrictionPairs, int numVehicles, array<VehicleWheels^>^ vehicles);
+		array<VehicleWheelQueryResult^>^ VehicleUpdates(float timestep, Vector3 gravity, VehicleDrivableSurfaceToTireFrictionPairs^ vehicleDrivableSurfaceToTireFrictionPairs, array<VehicleWheels^>^ vehicles);
 
 		//void VehiclePostUpdates(VehicleConcurrentUpdateData^ concurrentUpdateData, array<VehicleWheels^>^ vehicles);
+
+		void VehicleSetUpdateMode(VehicleUpdateMode updateMode);
+
+		bool VehicleIsInAir(VehicleWheelQueryResult^ vehicleWheelQueryResult);
 
 		/// <summary>
 		/// Reconfigure the vehicle to reflect a new center of mass local pose that has been applied to the actor.
@@ -123,6 +131,12 @@ namespace PhysX
 		property PhysX::Physics^ Physics
 		{
 			PhysX::Physics^ get();
+		}
+
+
+		static property UINT MaxWheelNumber
+		{
+			UINT get();
 		}
 	};
 };

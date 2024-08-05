@@ -21,6 +21,21 @@ PxVehicleDrive4W* VehicleDrive4W::Create(PhysX::Physics^ physics, RigidDynamic^ 
 	return PxVehicleDrive4W::create(physics->UnmanagedPointer, actor->UnmanagedPointer, *wd, *dd, numNonDrivenWheels);
 }
 
+void PhysX::VehicleDrive4W::SetToRestState()
+{
+	UnmanagedPointer->setToRestState();
+}
+
+void PhysX::VehicleDrive4W::SmoothDigitalRawInputsAndSetAnalogInputs(VehicleKeySmoothingData^ keySmoothingData, FixedSizeLookupTable^ steerVsForwardSpeedTable, VehicleDrive4WRawInputData^ rawInputData, float timestep, bool vehicleIsInAir)
+{
+	PxVehicleDrive4WSmoothDigitalRawInputsAndSetAnalogInputs(VehicleKeySmoothingData::ToUnmanaged(keySmoothingData), *FixedSizeLookupTable::ToUnmanaged(steerVsForwardSpeedTable), *rawInputData->UnmanagedPointer, timestep, vehicleIsInAir, *UnmanagedPointer);
+}
+
+void PhysX::VehicleDrive4W::SmoothAnalogRawInputsAndSetAnalogInputs(VehiclePadSmoothingData^ padSmoothingData, FixedSizeLookupTable^ steerVsForwardSpeedTable, VehicleDrive4WRawInputData^ rawInputData, float timestep, bool vehicleIsInAir)
+{
+	PxVehicleDrive4WSmoothAnalogRawInputsAndSetAnalogInputs(VehiclePadSmoothingData::ToUnmanaged(padSmoothingData), *FixedSizeLookupTable::ToUnmanaged(steerVsForwardSpeedTable), *rawInputData->UnmanagedPointer, timestep, vehicleIsInAir, *UnmanagedPointer);
+}
+
 VehicleDriveSimData4W^ VehicleDrive4W::DriveSimData::get()
 {
 	return _simData;

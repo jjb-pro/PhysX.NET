@@ -285,7 +285,7 @@
     <ClCompile Include="Source\ModifiableContact.cpp">
       <Filter>Contact</Filter>
     </ClCompile>
-    <ClCompile Include="Source\VehicleWheelQueryResult.cpp">
+    <ClCompile Include="Source\WheelQueryResult.cpp">
       <Filter>Vehicle</Filter>
     </ClCompile>
     <ClCompile Include="Source\LocationHit.cpp">
@@ -544,6 +544,28 @@
     <ClCompile Include="Source\RigidActorExt.cpp">
       <Filter>Actor</Filter>
     </ClCompile>
+    <ClCompile Include="Source\VehicleDrivableSurfaceToTireFrictionPairs.cpp">
+      <Filter>Vehicle</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\VehicleDrive4WRawInputData.cpp">
+      <Filter>Vehicle</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\InternalVehicleSceneQueryData.cpp" />
+    <ClCompile Include="Source\CustomExtensions.cpp">
+      <Filter>CustomExtensions</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\VehicleSceneQueryData.cpp">
+      <Filter>Vehicle</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\VehicleWheelQueryResult.cpp">
+      <Filter>Vehicle</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BatchQueryDesc.cpp">
+      <Filter>SceneQuery</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BatchQueryMemory.cpp">
+      <Filter>SceneQuery</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
@@ -551,7 +573,6 @@
     <ClInclude Include="Source\ErrorCallback.h" />
     <ClInclude Include="Source\FilterData.h" />
     <ClInclude Include="Source\FixedSizeLookupTable.h" />
-    <ClInclude Include="Source\FixedSizeLookupTablePair.h" />
     <ClInclude Include="Source\HullPolygon.h" />
     <ClInclude Include="Source\IDisposable.h" />
     <ClInclude Include="Source\InputData.h" />
@@ -904,7 +925,7 @@
     <ClInclude Include="Source\VehicleUtil.h">
       <Filter>Vehicle</Filter>
     </ClInclude>
-    <ClInclude Include="Source\VehicleWheelQueryResult.h">
+    <ClInclude Include="Source\WheelQueryResult.h">
       <Filter>Vehicle</Filter>
     </ClInclude>
     <ClInclude Include="Source\LocationHit.h">
@@ -1208,6 +1229,28 @@
     <ClInclude Include="Source\RigidActorExt.h">
       <Filter>Actor</Filter>
     </ClInclude>
+    <ClInclude Include="Source\VehicleDrivableSurfaceToTireFrictionPairs.h">
+      <Filter>Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\VehicleDrive4WRawInputData.h">
+      <Filter>Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\InternalVehicleSceneQueryData.h" />
+    <ClInclude Include="Source\CustomExtensions.h">
+      <Filter>CustomExtensions</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\VehicleSceneQueryData.h">
+      <Filter>Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\VehicleWheelQueryResult.h">
+      <Filter>Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BatchQueryDesc.h">
+      <Filter>SceneQuery</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BatchQueryMemory.h">
+      <Filter>SceneQuery</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Version.rc" />
@@ -1317,6 +1360,9 @@
     </Filter>
     <Filter Include="Simulation">
       <UniqueIdentifier>{6fe3be76-344f-4bb1-9aac-72d9c2d2e6ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CustomExtensions">
+      <UniqueIdentifier>{a5f01095-8da5-47c9-9563-cedfe5449e6d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

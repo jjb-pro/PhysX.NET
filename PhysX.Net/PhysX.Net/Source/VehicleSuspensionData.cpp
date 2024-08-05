@@ -11,6 +11,9 @@ PxVehicleSuspensionData VehicleSuspensionData::ToUnmanaged(VehicleSuspensionData
 		d.mMaxCompression = data->MaxCompression;
 		d.mMaxDroop = data->MaxDroop;
 		d.mSprungMass = data->SprungMass;
+		d.mCamberAtRest = data->CamberAtRest;
+		d.mCamberAtMaxDroop = data->CamberAtMaxDroop;
+		d.mCamberAtMaxCompression = data->CamberAtMaxCompression;
 
 	return d;
 }
@@ -22,6 +25,9 @@ VehicleSuspensionData^ VehicleSuspensionData::ToManaged(PxVehicleSuspensionData 
 		d->MaxCompression = data.mMaxCompression;
 		d->MaxDroop = data.mMaxDroop;
 		d->SprungMass = data.mSprungMass;
+		d->CamberAtRest = data.mCamberAtRest;
+		d->CamberAtMaxDroop = data.mCamberAtMaxDroop;
+		d->CamberAtMaxCompression = data.mCamberAtMaxCompression;
 
 	return d;
 }
