@@ -33,7 +33,7 @@ To use PhysX.NET, follow these steps:
 
 ## Example
 
-A sample implementation is available in the **Samples** directory of the repository. This example demonstrates how to use the wrapper and its features.
+Sample implementations are available in the **Samples** directory of the repository. This examples demonstrate how to use the wrapper and its features.
 
 ## Development
 
