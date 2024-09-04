@@ -250,10 +250,12 @@ array<PhysX::TriangleMesh^>^ Physics::TriangleMesh::get()
 #pragma region Convex Mesh
 ConvexMesh^ Physics::CreateConvexMesh(System::IO::Stream^ stream)
 {
+	PxDefaultMemoryInputData* ms;
+
 	try
 	{
 		// TODO: Memory leak
-		PxDefaultMemoryInputData* ms = Util::StreamToUnmanagedInputStream(stream);
+		ms = Util::StreamToUnmanagedInputStream(stream);
 
 		PxConvexMesh* convexMesh = _physics->createConvexMesh(*ms);
 
@@ -262,13 +264,11 @@ ConvexMesh^ Physics::CreateConvexMesh(System::IO::Stream^ stream)
 	
 		auto cm = gcnew PhysX::ConvexMesh(convexMesh, this);
 
-		//delete ms;
-
 		return cm;
 	}
 	finally
 	{
-		//delete[] ms.GetMemory();
+		delete ms;
 	}
 }
 

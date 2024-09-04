@@ -551,9 +551,6 @@
       <Filter>Vehicle</Filter>
     </ClCompile>
     <ClCompile Include="Source\InternalVehicleSceneQueryData.cpp" />
-    <ClCompile Include="Source\CustomExtensions.cpp">
-      <Filter>CustomExtensions</Filter>
-    </ClCompile>
     <ClCompile Include="Source\VehicleSceneQueryData.cpp">
       <Filter>Vehicle</Filter>
     </ClCompile>
@@ -1236,9 +1233,6 @@
       <Filter>Vehicle</Filter>
     </ClInclude>
     <ClInclude Include="Source\InternalVehicleSceneQueryData.h" />
-    <ClInclude Include="Source\CustomExtensions.h">
-      <Filter>CustomExtensions</Filter>
-    </ClInclude>
     <ClInclude Include="Source\VehicleSceneQueryData.h">
       <Filter>Vehicle</Filter>
     </ClInclude>

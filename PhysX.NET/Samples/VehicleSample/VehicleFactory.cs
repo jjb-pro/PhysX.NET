@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Numerics;
-using Extensions = PhysX.CustomExtensions.CustomExtensions;
+﻿using System.Numerics;
 
 namespace PhysX.Samples.VehicleSample;
 
@@ -149,7 +146,7 @@ public static class VehicleFactory
             VehicleChassisData rigidBodyData = new()
             {
                 MomentOfInertia = vehicleDecription.chassisMOI,
-                Mass = 450,// vehicle4WDesc.chassisMass,
+                Mass = vehicleDecription.chassisMass,
                 CenterOfMassOffset = vehicleDecription.chassisCMOffset
             };
 
@@ -257,15 +254,16 @@ public static class VehicleFactory
         convexDescription.SetPositions(vertices);
         convexDescription.SetTriangles(Array.Empty<uint>());
 
-        MemoryStream buf = new();
+        MemoryStream buffer = new();
 
-        var result = cooking.CookConvexMesh(convexDescription, buf);
+        var result = cooking.CookConvexMesh(convexDescription, buffer);
 
         if (result != ConvexMeshCookingResult.Success)
             throw new Exception($"Could not cook convex mesh!");
 
-        // use custom extensions because default way causes exception
-        return Extensions.CreateConvexMesh(physics, cooking, convexDescription);
+        buffer.Position = 0;
+
+        return physics.CreateConvexMesh(buffer);
     }
 
     private static RigidDynamic CreateVehicleActor(Physics physics, VehicleChassisData chassisData, Material[] wheelMaterials, ConvexMesh[] wheelConvexMeshes, FilterData wheelSimFilterData, Material[] chassisMaterials, ConvexMesh[] chassisConvexMeshes, FilterData chassisSimFilterData)
@@ -319,7 +317,7 @@ public static class VehicleFactory
         // set the outside of the left and right wheels to be flush with the chassis
         // set the top of the wheel to be just touching the underside of the chassis
         // begin by setting the rear-left/rear-right/front-left,front-right wheels
-        var wheelCentreOffsets = new Vector3[VehicleSDK.MaxWheelNumber];
+        var wheelCentreOffsets = new Vector3[numWheels];
         wheelCentreOffsets[(int)VehicleWheelOrdering.RearLeft] = new((-chassisDims.X + wheelWidth) * 0.5f, -(chassisDims.Y / 2 + wheelRadius), wheelRearZ + 0 * deltaZ * 0.5f);
         wheelCentreOffsets[(int)VehicleWheelOrdering.RearRight] = new((+chassisDims.X - wheelWidth) * 0.5f, -(chassisDims.Y / 2 + wheelRadius), wheelRearZ + 0 * deltaZ * 0.5f);
         wheelCentreOffsets[(int)VehicleWheelOrdering.FrontLeft] = new((-chassisDims.X + wheelWidth) * 0.5f, -(chassisDims.Y / 2 + wheelRadius), wheelRearZ + (numLeftWheels - 1) * deltaZ);

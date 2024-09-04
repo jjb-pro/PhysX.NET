@@ -97,7 +97,6 @@
   <ItemGroup>
     <ClInclude Include="Source\BatchQueryDesc.h" />
     <ClInclude Include="Source\BatchQueryMemory.h" />
-    <ClInclude Include="Source\CustomExtensions.h" />
     <ClInclude Include="Source\InternalVehicleSceneQueryData.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Source\Actor.h" />
@@ -342,7 +341,6 @@
   <ItemGroup>
     <ClCompile Include="Source\BatchQueryDesc.cpp" />
     <ClCompile Include="Source\BatchQueryMemory.cpp" />
-    <ClCompile Include="Source\CustomExtensions.cpp" />
     <ClCompile Include="Source\InternalVehicleSceneQueryData.cpp" />
     <ClCompile Include="Source\Actor.cpp" />
     <ClCompile Include="Source\ActorShape.cpp" />
