@@ -1,4 +1,7 @@
+![blue PhysX icon](https://github.com/jjb-pro/PhysX.NET/blob/main/PhysX.NET/assets/icon.png)
 # PhysX.NET
+
+[![NuGet](https://img.shields.io/nuget/v/PhysX4.NET.svg)](https://www.nuget.org/packages/PhysX4.NET)
 
 PhysX.NET is a .NET wrapper for NVIDIA PhysX 4.1.2, implemented using C++/CLI. This project is a fork of [PhysX.Net](https://github.com/stilldesign/PhysX.Net) and includes a fully functional vehicle sample.
 
@@ -20,16 +23,12 @@ PhysX.NET is a .NET wrapper for NVIDIA PhysX 4.1.2, implemented using C++/CLI. T
 
 To use PhysX.NET, follow these steps:
 
-1. **Download**: Download the latest version from the [Releases](https://github.com/jjb-pro/PhysX.NET/releases/) page (there is no NuGet package). 
-2. Ensure the following DLLs are in the same directory as your executable:
-   - `PhysX_64.dll`
-   - `PhysXCommon_64.dll`
-   - `PhysXCooking_64.dll`
-   - `PhysXFoundation_64.dll`
-   - `Ijwhost.dll`
-3. **Add Reference**: Add a reference to the `PhysX.NET` assembly in your .NET project.
-
-4. **Initialize PhysX**: Follow the example provided in the repository to set up and initialize PhysX in your project.
+1. **Install via NuGet**: Add the package to your project using the .NET CLI:
+   ```bash
+   dotnet add package PhysX4.NET
+   ```
+   Or, search for `PhysX4.NET` in the NuGet Package Manager in Visual Studio.
+2. **Initialize PhysX**: Follow the examples provided in the repository to set up and initialize PhysX in your project.
 
 ## Example
 

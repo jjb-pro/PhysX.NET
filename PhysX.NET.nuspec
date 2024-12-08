@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>PhysX4.NET</id>
+    <version>5.1.0</version>
+    <authors>StillDesign &amp; jjb</authors>
+    <owners>jjb</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>PhysX.NET is a .NET wrapper for NVIDIA PhysX 4.1.2 (debug configuration), implemented using C++/CLI. This project is a fork of PhysX.Net by stilldesign and contains a fully functional vehicle example.</description>
+    <tags>Physics PhysX NVIDIA Wrapper</tags>
+    <frameworkAssemblies>
+      <frameworkAssembly
+        assemblyName="System.Numerics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    </frameworkAssemblies>
+    <references>
+      <group targetFramework="net8.0">
+        <reference file="PhysX.NET.dll" />
+      </group>
+    </references>
+    <dependencies>
+      <group targetFramework="net8.0" />
+    </dependencies>
+    <icon>assets\icon.png</icon>
+    <readme>README.md</readme>
+    <projectUrl>https://github.com/jjb-pro/PhysX.NET</projectUrl>
+    <repository type="git" url="https://github.com/jjb-pro/PhysX.NET" />
+    <license type="expression">MIT</license>
+  </metadata>
+  <files>
+    <file src="PhysX.NET\PhysX.NET\bin\x64\Debug\PhysX.NET.dll" target="lib\net8.0" />
+    <file src="PhysX.NET\PhysX.NET\bin\x64\Debug\PhysX.NET.pdb" target="lib\net8.0" />
+
+    <file src="PhysX.NET\PhysX.NET\bin\x64\Debug\PhysX.NET.dll" target="ref\net8.0" />
+
+    <!-- Dependencies -->
+    <!--
+			Required to run in 64 bit mode.
+			If they are not present then a BadImageFormatException will be thrown.
+		-->
+    <file src="PhysX.NET\PhysX.NET\bin\x64\Debug\Ijwhost.dll" target="runtimes/win-x64/native" />
+    <!-- The native PhysX DLL files -->
+    <file src="PhysX.NET\Assemblies\x64\Debug\*.dll" target="runtimes/win-x64/native" />
+    <file src="PhysX.NET\Assemblies\x64\Debug\*.pdb" target="pdb" />
+
+    <!--
+			A helper .targets file which will add the required native dlls to the root of a project and set
+    them to copy to the output dir.
+			See the README.md on how to use this in your csproj file.
+		-->
+    <file src="PhysX.NET\PhysX.NET\RuntimeFiles.targets" target="lib" />
+
+    <file src="PhysX.NET\assets\icon.png" target="assets\" />
+    <file src="README.md" target="\" />
+  </files>
+</package>

@@ -23,7 +23,8 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <TargetFramework>net80</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
+    <WindowsTargetPlatformMinVersion>8.0</WindowsTargetPlatformMinVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
@@ -62,8 +63,8 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(ProjectDir)bin\x64\$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)bin\x64\$(Configuration)\Intermediate\</IntDir>
-    <LibraryPath>$(NVIDIAPhysX41SDK)\physx\bin\win.x86_64.vc143.md\release;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(NVIDIAPhysX41SDK)\physx\Include;$(NVIDIAPhysX41SDK)\PxShared\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\NVIDIAGameWorks\PhysX\physx\bin\win.x86_64.vc142.mt\debug\;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\NVIDIAGameWorks\PhysX\pxshared\include\;C:\NVIDIAGameWorks\PhysX\physx\include;$(NVIDIAPhysX41SDK)\physx\Include;$(NVIDIAPhysX41SDK)\PxShared\include\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -83,7 +84,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN64;NDEBUG;PHYSX_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN64;NDEBUG;PHYSX_RELEASE;%(PreprocessorDefinitions);</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
