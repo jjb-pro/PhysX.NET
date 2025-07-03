@@ -105,110 +105,123 @@ public static class VehicleFactory
         return new(chassisMass, chassisDims, chassisMOI, chassisCMOffset, chassisMaterial, new((uint)CollisionFlags.Chassis, (uint)CollisionFlags.AgainstChassis, 0, 0), wheelMass, wheelWidth, wheelRadius, wheelMOI, nbWheels, wheelMaterial, new((uint)CollisionFlags.Wheel, (uint)CollisionFlags.AgainstWheel, 0, 0));
     }
 
-    public static VehicleDrive4W CreateVehicle4W(Physics physics, Cooking cooking, VehicleDescription vehicleDecription)
+    // Common setup for actor creation
+    private static RigidDynamic CreateVehicleActorAndMeshes(Physics physics, Cooking cooking,
+        VehicleDescription vehicleDescription, out ConvexMesh[] wheelConvexMeshes, out Material[] wheelMaterials,
+        out FilterData wheelSimFilterData, out FilterData chassisSimFilterData, out ConvexMesh chassisConvexMesh)
     {
-        Vector3 chassisDims = vehicleDecription.chassisDims;
-        float wheelWidth = vehicleDecription.wheelWidth;
-        float wheelRadius = vehicleDecription.wheelRadius;
-        uint numWheels = vehicleDecription.numWheels;
+        Vector3 chassisDims = vehicleDescription.chassisDims;
+        float wheelWidth = vehicleDescription.wheelWidth;
+        float wheelRadius = vehicleDescription.wheelRadius;
+        uint numWheels = vehicleDescription.numWheels;
 
-        FilterData chassisSimFilterData = vehicleDecription.chassisSimFilterData;
-        FilterData wheelSimFilterData = vehicleDecription.wheelSimFilterData;
+        wheelSimFilterData = vehicleDescription.wheelSimFilterData;
+        chassisSimFilterData = vehicleDescription.chassisSimFilterData;
 
-        // construct an actor with shapes for the chassis and wheels
-        // set the rigid body mass, moment of inertia, and center of mass offset
-        RigidDynamic veh4WActor;
+        // Create wheel mesh
+        ConvexMesh wheelMesh = CreateWheelMesh(physics, cooking, wheelWidth, wheelRadius);
+
+        wheelConvexMeshes = new ConvexMesh[VehicleSDK.MaxWheelNumber];
+        wheelMaterials = new Material[VehicleSDK.MaxWheelNumber];
+
+        // Assign wheels meshes and materials
+        for (uint i = 0; i < numWheels; i++)
         {
-            // construct a convex mesh for a cylindrical wheel
-            ConvexMesh wheelMesh = CreateWheelMesh(physics, cooking, wheelWidth, wheelRadius);
-            // assume all wheels are identical for simplicity
-            ConvexMesh[] wheelConvexMeshes = new ConvexMesh[VehicleSDK.MaxWheelNumber];
-            Material[] wheelMaterials = new Material[VehicleSDK.MaxWheelNumber];
-
-            // set the meshes and materials for the driven wheels
-            for (uint i = (uint)VehicleWheelOrdering.FrontLeft; i <= (uint)VehicleWheelOrdering.RearRight; i++)
-            {
-                wheelConvexMeshes[i] = wheelMesh;
-                wheelMaterials[i] = vehicleDecription.wheelMaterial;
-            }
-
-            // set the meshes and materials for the non-driven wheels
-            for (uint i = (uint)VehicleWheelOrdering.RearRight + 1; i < numWheels; i++)
-            {
-                wheelConvexMeshes[i] = wheelMesh;
-                wheelMaterials[i] = vehicleDecription.wheelMaterial;
-            }
-
-            // chassis just has a single convex shape for simplicity
-            ConvexMesh chassisConvexMesh = CreateChassisMesh(physics, cooking, chassisDims);
-
-            // rigid body data
-            VehicleChassisData rigidBodyData = new()
-            {
-                MomentOfInertia = vehicleDecription.chassisMOI,
-                Mass = vehicleDecription.chassisMass,
-                CenterOfMassOffset = vehicleDecription.chassisCMOffset
-            };
-
-            veh4WActor = CreateVehicleActor(physics, rigidBodyData, wheelMaterials, wheelConvexMeshes, wheelSimFilterData, [vehicleDecription.chassisMaterial], [chassisConvexMesh], chassisSimFilterData);
+            wheelConvexMeshes[i] = wheelMesh;
+            wheelMaterials[i] = vehicleDescription.wheelMaterial;
         }
 
-        // set up the sim data for the wheels
-        VehicleWheelsSimData wheelsSimData;
+        // Chassis mesh
+        chassisConvexMesh = CreateChassisMesh(physics, cooking, chassisDims);
+
+        VehicleChassisData rigidBodyData = new()
         {
-            // compute the wheel center offsets from the origin
-            float frontZ = chassisDims.Z * 0.3f;
-            float rearZ = -chassisDims.Z * 0.3f;
-            var wheelCenterActorOffsets = ComputeWheelCenterActorOffsets4W(frontZ, rearZ, chassisDims, wheelWidth, wheelRadius, numWheels);
+            MomentOfInertia = vehicleDescription.chassisMOI,
+            Mass = vehicleDescription.chassisMass,
+            CenterOfMassOffset = vehicleDescription.chassisCMOffset
+        };
 
-            //Set up the simulation data for all wheels.
-            wheelsSimData = SetupWheelsSimulationData(physics, vehicleDecription.wheelMass, vehicleDecription.wheelMOI, wheelRadius, wheelWidth, numWheels, wheelCenterActorOffsets, vehicleDecription.chassisCMOffset, vehicleDecription.chassisMass);
-        }
+        return CreateVehicleActor(physics, rigidBodyData, wheelMaterials, wheelConvexMeshes, wheelSimFilterData, [vehicleDescription.chassisMaterial], [chassisConvexMesh], chassisSimFilterData);
+    }
 
-        //Set up the sim data for the vehicle drive model.
+    // Common setup for wheels sim data
+    private static VehicleWheelsSimData SetupWheelsSimDataCommon(Physics physics, VehicleDescription vehicleDescription, Vector3 chassisDims)
+    {
+        float wheelWidth = vehicleDescription.wheelWidth;
+        float wheelRadius = vehicleDescription.wheelRadius;
+        uint numWheels = vehicleDescription.numWheels;
+
+        // Compute wheel center offsets
+        float frontZ = chassisDims.Z * 0.3f;
+        float rearZ = -chassisDims.Z * 0.3f;
+        var wheelCenterActorOffsets = ComputeWheelCenterActorOffsets4W(frontZ, rearZ, chassisDims, wheelWidth, wheelRadius, numWheels);
+
+        // Setup wheels sim data
+        return SetupWheelsSimulationData(
+            physics,
+            vehicleDescription.wheelMass,
+            vehicleDescription.wheelMOI,
+            wheelRadius,
+            wheelWidth,
+            numWheels,
+            wheelCenterActorOffsets,
+            vehicleDescription.chassisCMOffset,
+            vehicleDescription.chassisMass);
+    }
+
+    public static VehicleDrive4W CreateVehicle4W(Physics physics, Cooking cooking, VehicleDescription vehicleDescription)
+    {
+        Vector3 chassisDims = vehicleDescription.chassisDims;
+
+        // Setup actor and meshes
+        var veh4WActor = CreateVehicleActorAndMeshes(physics, cooking, vehicleDescription,
+            out ConvexMesh[] wheelConvexMeshes, out Material[] wheelMaterials,
+            out FilterData wheelSimFilterData, out FilterData chassisSimFilterData, out ConvexMesh chassisConvexMesh);
+
+        // Setup wheels sim data
+        VehicleWheelsSimData wheelsSimData = SetupWheelsSimDataCommon(physics, vehicleDescription, chassisDims);
+
+        // Setup drive sim data
         VehicleDriveSimData4W driveSimData = new();
         {
-            //Diff
-            VehicleDifferential4WData diff = new() { Type = VehicleDifferentialType.LimitedSlip4WheelDrive };
+            var diff = new VehicleDifferential4WData { Type = VehicleDifferentialType.LimitedSlip4WheelDrive };
             driveSimData.SetDifferentialData(diff);
 
-            //Engine - approx 6000 rpm
-            VehicleEngineData engine = new()
-            {
-                PeakTorque = 500.0f,
-                MaxOmega = 600.0f
-            };
+            var engine = new VehicleEngineData { PeakTorque = 500.0f, MaxOmega = 600.0f };
             driveSimData.SetEngineData(engine);
 
-            //Gears
-            VehicleGearsData gears = new()
-            {
-                SwitchTime = 0.5f
-            };
+            var gears = new VehicleGearsData { SwitchTime = 0.5f };
             driveSimData.SetGearsData(gears);
 
-            //Clutch
-            VehicleClutchData clutch = new()
-            {
-                Strength = 10.0f
-            };
+            var clutch = new VehicleClutchData { Strength = 10.0f };
             driveSimData.SetClutchData(clutch);
 
-            //Ackermann steer accuracy
-            VehicleAckermannGeometryData ackermann = new()
+            var ackermann = new VehicleAckermannGeometryData
             {
                 Accuracy = 1.0f,
-                AxleSeparation = wheelsSimData.GetWheelCentreOffset((int)VehicleWheelOrdering.FrontLeft).Z - wheelsSimData.GetWheelCentreOffset((int)VehicleWheelOrdering.RearLeft).Z,
-                FrontWidth = wheelsSimData.GetWheelCentreOffset((int)VehicleWheelOrdering.FrontRight).X - wheelsSimData.GetWheelCentreOffset((int)VehicleWheelOrdering.FrontLeft).X,
-                RearWidth = wheelsSimData.GetWheelCentreOffset((int)VehicleWheelOrdering.RearRight).X - wheelsSimData.GetWheelCentreOffset((int)VehicleWheelOrdering.RearLeft).X
+                AxleSeparation = wheelsSimData.GetWheelCentreOffset((int)VehicleWheelOrdering.FrontLeft).Z -
+                                wheelsSimData.GetWheelCentreOffset((int)VehicleWheelOrdering.RearLeft).Z,
+                FrontWidth = wheelsSimData.GetWheelCentreOffset((int)VehicleWheelOrdering.FrontRight).X -
+                             wheelsSimData.GetWheelCentreOffset((int)VehicleWheelOrdering.FrontLeft).X,
+                RearWidth = wheelsSimData.GetWheelCentreOffset((int)VehicleWheelOrdering.RearRight).X -
+                            wheelsSimData.GetWheelCentreOffset((int)VehicleWheelOrdering.RearLeft).X
             };
             driveSimData.SetAckermannGeometryData(ackermann);
         }
 
-        // create a vehicle from the wheels and drive sim data
-        var vehDrive4W = new VehicleDrive4W(physics, veh4WActor, wheelsSimData, driveSimData, (int)numWheels - 4);
+        return new VehicleDrive4W(physics, veh4WActor, wheelsSimData, driveSimData, (int)vehicleDescription.numWheels - 4);
+    }
 
-        return vehDrive4W;
+    public static VehicleNoDrive CreateVehicleNoDrive(Physics physics, Cooking cooking, VehicleDescription vehicleDescription)
+    {
+        Vector3 chassisDims = vehicleDescription.chassisDims;
+
+        var vehActor = CreateVehicleActorAndMeshes(physics, cooking, vehicleDescription,
+            out _, out _, out _, out _, out _);
+
+        var wheelsSimData = SetupWheelsSimDataCommon(physics, vehicleDescription, chassisDims);
+
+        return new VehicleNoDrive(physics, vehActor, wheelsSimData);
     }
 
     private static ConvexMesh CreateWheelMesh(Physics physics, Cooking cooking, float width, float radius)

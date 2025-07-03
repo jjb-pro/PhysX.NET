@@ -22,12 +22,19 @@ public class VehicleSample
     private VehicleDrivableSurfaceToTireFrictionPairs vehicleFrictionPairs;
 
     private RigidStatic groundPlane;
+
+#if USE_VEHICLE4W
+    public bool HasCompleted => inputHelper.VehicleOrderComplete;
     private VehicleDrive4W vehicle;
+#else
+    public bool HasCompleted => _frameCount >= 500;
+    private VehicleNoDrive vehicle;
+#endif
 
     // helper class for setting input
     private VehicleInputHelper inputHelper;
 
-    public bool HasCompleted => inputHelper.VehicleOrderComplete;
+    private uint _frameCount = 0;
 
     // initialize physics like always
     public void InitializePhysics()
@@ -71,17 +78,24 @@ public class VehicleSample
 
         // create a vehicle that will drive on the plane
         VehicleDescription vehicleDescription = InitVehicleDescription(defaultMaterial, defaultMaterial);
+#if USE_VEHICLE4W
         vehicle = CreateVehicle4W(physics, cooking, vehicleDescription);
+#else
+        vehicle = CreateVehicleNoDrive(physics, cooking, vehicleDescription);
+#endif
         var startTransform = new Transform(Quaternion.Identity, new(0, vehicleDescription.chassisDims.Y * 0.5f + vehicleDescription.wheelRadius + 1.0f + 0f, 0));
         vehicle.Actor.GlobalPose = startTransform.ToMatrix();
         scene.AddActor(vehicle.Actor);
 
         // set the vehicle to rest in first gear and to use auto-gears
         vehicle.SetToRestState();
+
+#if USE_VEHICLE4W
         vehicle.DriveDynData.ForceGearChange((int)VehicleGears.First);
         vehicle.DriveDynData.UseAutoGears = true;
 
         inputHelper = new(vehicle);
+#endif
     }
 
     private bool isVehicleInAir = false;
@@ -89,12 +103,21 @@ public class VehicleSample
     public void StepPhysics()
     {
         float timeStep = 1.0f / 60.0f;
+        _frameCount++;
 
+#if USE_VEHICLE4W
         // cycle through the driving modes to demonstrate how to accelerate/reverse/brake/turn etc.
         inputHelper.IncrementDrivingMode(timeStep);
 
         // update the control inputs for the vehicle
         inputHelper.UpdateControlInputs(timeStep, isVehicleInAir);
+#else
+        vehicle.SetSteerAngle(2, 10);
+        vehicle.SetSteerAngle(3, 10);
+
+        vehicle.SetDriveTorque(2, 1000);
+        vehicle.SetDriveTorque(3, 1000);
+#endif
 
         // raycasts
         var vehicles = new VehicleWheels[] { vehicle };

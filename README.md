@@ -1,4 +1,5 @@
 ![blue PhysX icon](https://github.com/jjb-pro/PhysX.NET/blob/main/PhysX.NET/assets/icon.png)
+
 # PhysX.NET
 
 [![NuGet](https://img.shields.io/nuget/v/PhysX4.NET.svg)](https://www.nuget.org/packages/PhysX4.NET)
@@ -7,32 +8,35 @@ PhysX.NET is a .NET wrapper for NVIDIA PhysX 4.1.2, implemented using C++/CLI. T
 
 ## Features
 
-- **Vehicle Physics**: A fully functional vehicle simulation example. This wrapper is the only one that offers the option of implementing vehicle physics with C#. 
-- **Scene Management**: Create and manage physics scenes.
-- **Actor Management**: Handle actors, their properties, and physics interactions.
-- **Material Properties**: Define and manage physical materials.
-- **Raycasting and Queries**: Perform raycasts and queries.
-- **Debugging Tools**: Visualize and debug physics interactions with the PhysX Visual Debugger.
-- **Remaining Features**:
-  - Attach/Detach shape from an actor
-  - Serialization
-  - Broad Phase
-  - Deletion Listener
+* **Vehicle Physics**: This wrapper is the only one that offers vehicle physics implementation in C#. This project offers a fully functional vehicle simulation example.
+* **Scene Management**: Create and manage physics scenes.
+* **Actor Management**: Handle actors, their properties, and physics interactions.
+* **Material Properties**: Define and manage physical materials.
+* **Raycasting and Queries**: Perform raycasts and queries.
+* **Debugging Tools**: Visualize and debug physics interactions using the PhysX Visual Debugger.
+* **Remaining Features**:
+
+  * Attach/detach shapes from actors
+  * Serialization support
+  * Broad phase collision detection
+  * Deletion listener support
 
 ## Usage
 
 To use PhysX.NET, follow these steps:
 
 1. **Install via NuGet**: Add the package to your project using the .NET CLI:
+
    ```bash
    dotnet add package PhysX4.NET
    ```
-   Or, search for `PhysX4.NET` in the NuGet Package Manager in Visual Studio.
+
+   Or search for `PhysX4.NET` in the NuGet Package Manager in Visual Studio.
 2. **Initialize PhysX**: Follow the examples provided in the repository to set up and initialize PhysX in your project.
 
 ## Example
 
-Sample implementations are available in the **Samples** directory of the repository. This examples demonstrate how to use the wrapper and its features.
+Sample implementations are available in the **Samples** directory of the repository. These examples demonstrate how to use the wrapper and its features.
 
 ## Development
 

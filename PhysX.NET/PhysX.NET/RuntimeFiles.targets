@@ -1,28 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<ItemGroup>
-		<None Include="$(MSBuildThisFileDirectory)..\runtimes\win-x64\native\PhysX_64.dll">
-			<Link>PhysX_64.dll</Link>
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-
-		<None Include="$(MSBuildThisFileDirectory)..\runtimes\win-x64\native\PhysXCommon_64.dll">
-			<Link>PhysXCommon_64.dll</Link>
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-
-		<None Include="$(MSBuildThisFileDirectory)..\runtimes\win-x64\native\PhysXCooking_64.dll">
-			<Link>PhysXCooking_64.dll</Link>
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-
-		<None Include="$(MSBuildThisFileDirectory)..\runtimes\win-x64\native\PhysXFoundation_64.dll">
-			<Link>PhysXFoundation_64.dll</Link>
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-
-		<None Include="$(MSBuildThisFileDirectory)..\runtimes\win-x64\native\Ijwhost.dll">
-			<Link>Ijwhost.dll</Link>
+		<NativeLibs Include="$(MSBuildThisFileDirectory)..\runtimes\win-x64\native\*.dll" />
+		<None Include="@(NativeLibs)">
+			<Link>%(RecursiveDir)%(FileName)%(Extension)</Link>
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
